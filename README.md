@@ -1,2 +1,2 @@
-base-terminal
+.base_terminal
 =============

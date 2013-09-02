@@ -1,8 +1,7 @@
-source ~/.git-completion.bash
 source ~/.git-prompt.sh
  
 if [ -f ~/.git-prompt.sh ]; then
-  . ~/.git-prompt.sh
+ . ~/.git-prompt.sh
 	GIT_PS1_SHOWDIRTYSTATE=true
 	GIT_PS1_SHOWCOLORHINTS=true
 	GIT_PS1_UNTRACKEDFILES=true
@@ -13,7 +12,7 @@ alias g=git
 alias gs='git status'
 alias gd='git diff'
 alias ga='git add'
-alias gc= 'git commit'
-alias gco= 'git checkout'
+alias gc='git commit'
+alias gco='git checkout'
 alias gpull='git pull'
 alias gpush='git push'
