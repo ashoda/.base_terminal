@@ -1,3 +1,7 @@
+if [ -f ~/.bashrc ]; then
+   source ~/.bashrc
+fi
+
 alias lsa='ls -aFhlG'
 alias ll='ls -l'
 alias search=grep
