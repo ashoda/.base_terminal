@@ -1,6 +1,6 @@
 .base_terminal
 =============
 
-  git shortcuts 
-  rails shortcuts 
-  change directory search (cds) 
+  git shortcuts
+  , rails shortcuts
+  , change directory search (cds)
