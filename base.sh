@@ -8,6 +8,16 @@ alias search=grep
 alias ..='cd ..'
 alias ...='cd ../..'
 
-source ./.base_terminal/cds.sh
-source ./.base_terminal/git.sh
-source ./.base_terminal/rails.sh
+
+if [ ! -f ./cds.sh ]; then
+   source ./cds.sh
+fi
+
+if [ ! -f ./git.sh ]; then
+   source ./git.sh
+fi
+
+if [ ! -f ./rails.sh ]; then
+   source ./rails.sh
+fi
+
