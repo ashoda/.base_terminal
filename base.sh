@@ -8,16 +8,9 @@ alias search=grep
 alias ..='cd ..'
 alias ...='cd ../..'
 
+BASE_DIR=`dirname $BASH_SOURCE`
 
-if [ ! -f ./cds.sh ]; then
-   source ./cds.sh
-fi
-
-if [ ! -f ./git.sh ]; then
-   source ./git.sh
-fi
-
-if [ ! -f ./rails.sh ]; then
-   source ./rails.sh
-fi
+[[ -f "$BASE_DIR/cds.sh" ]] && source "$BASE_DIR/cds.sh"
+[[ -f "$BASE_DIR/git.sh" ]] && source "$BASE_DIR/git.sh"
+[[ -f "$BASE_DIR/rails.sh" ]] && source "$BASE_DIR/rails.sh"
 
