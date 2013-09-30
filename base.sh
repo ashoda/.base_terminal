@@ -9,15 +9,8 @@ alias ..='cd ..'
 alias ...='cd ../..'
 
 
-if [ ! -f ./cds.sh ]; then
-   source ./cds.sh
-fi
+[[ ! -f ./cds.sh ]] && source ./cds.sh
+[[ ! -f ./git.sh ]] && source ./git.sh
+[[ ! -f ./rails.sh ]] && source ./rails.sh
 
-if [ ! -f ./git.sh ]; then
-   source ./git.sh
-fi
-
-if [ ! -f ./rails.sh ]; then
-   source ./rails.sh
-fi
 
