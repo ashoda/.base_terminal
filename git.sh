@@ -1,11 +1,9 @@
-if [ -f ~/.git-prompt.sh ]; then
-	source ~/.git-prompt.sh
- . ~/.git-prompt.sh
-	GIT_PS1_SHOWDIRTYSTATE=true
-	GIT_PS1_SHOWCOLORHINTS=true
-	GIT_PS1_UNTRACKEDFILES=true
-	PROMPT_COMMAND="__git_ps1 '\u@\h:\w' '\\$ '"
-fi
+source "$BASE_DIR/vendor/.git-prompt.sh"
+
+GIT_PS1_SHOWDIRTYSTATE=true
+GIT_PS1_SHOWCOLORHINTS=true
+GIT_PS1_UNTRACKEDFILES=true
+PROMPT_COMMAND="__git_ps1 '\u@\h:\w' '\\$ '"
 
 alias g=git
 alias gs='git status'
