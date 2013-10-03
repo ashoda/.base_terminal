@@ -1,6 +1,5 @@
-source ~/.git-prompt.sh
- 
 if [ -f ~/.git-prompt.sh ]; then
+	source ~/.git-prompt.sh
  . ~/.git-prompt.sh
 	GIT_PS1_SHOWDIRTYSTATE=true
 	GIT_PS1_SHOWCOLORHINTS=true
