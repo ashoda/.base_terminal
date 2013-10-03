@@ -8,15 +8,15 @@ function cds {
 	if [ $EXACTMATCH == "1" ]; 
 		then cd $1		
 	elif [ "$SEARCH" -eq "$SEARCH" ] 2>/dev/null; then
-		array=(`ls -d */ `)
+		array=(`ls -dt */ `)
 		cd "${array[ $SEARCH - 1 ]}"
 	else
 		if [ "$ANY" == "1" ] ;
 			then
-			cd $( ls -d */ | grep -i ^$1.*$2$ )
+			cd $( ls -dt */ | grep -i ^$1.*$2$ )
 		else 
 		 	
-			array=( $( ls -d */ | grep -o -i ^$1.*$2$ ) )
+			array=( $( ls -dt */ | grep -o -i ^$1.*$2$ ) )
 			index=1
 			for i in "${array[@]}" 
 			do
