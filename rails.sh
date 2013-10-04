@@ -4,4 +4,5 @@ alias rd='rails dbconsole'
 alias rk=rake
 alias rdbc='rake db:create'
 alias rdbm='rake db:migrate'
-alias binstall='bundle install'
+alias bi='bundle install'
+alias bu='bundle update'
