@@ -1,18 +1,19 @@
 #.base_terminal
 
 Basic dev utilities and shortcuts for common and useful terminal functionality.
-	base.sh - base shortcuts and sourcing other functionality
-	cds.sh - quickly view and navigation through directories
-	git.sh - PS1 functionality and a handfull of git shortcuts 
-	rails.sh - rails shortcuts 
+
+	1.base.sh - base shortcuts and sourcing other functionality
+	2.cds.sh - quickly view and navigation through directories
+	3.git.sh - PS1 functionality and a handfull of git shortcuts 
+	4.rails.sh - rails shortcuts 
 
 ## Installation
 
     cd ~
     git clone https://github.com/ashoda/.base_terminal.git
-
-    add the following source to .bash_profile
-    	"source ~/.base_terminal/base.sh"
+    cd .base_terminal
+    ./setup.sh
+    
 
 ## CDS Usage
 
