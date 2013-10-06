@@ -25,12 +25,11 @@ function cds {
 			else
 				array=( $( ls -d */ | grep -o -i ^$1.*$2/$ ) )
 			fi
-			
 			index=1
 			for i in "${array[@]}" 
 			do
-				echo -e "\033[32m$index\033[39m: $i"
-				((index++))
+					echo -e "\033[32m$index\033[39m: $i"
+					((index++))
 			done
 
 			printf "Select one Or press [enter] to exit > " 
