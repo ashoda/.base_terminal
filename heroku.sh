@@ -21,7 +21,7 @@ function heroku:apps {
 # Usage heroku:configs searchTerm1,AnotherTerm,partialTerm3 app1_partial_name app2 app3_partial_name
 function heroku:configs  {
 	SKIPED_VARIABLE_ATTRIBUTE=""
-	APPS=$( heroku apps | grep -o ^.* )
+	APPS=$( heroku apps | grep -E -o "^.* " )
 	APP_COUNT=$( echo "$APPS" | grep -E -c ".*$2.*" )
 
 	if [[ 15 -ge $APP_COUNT ]]; then 
@@ -32,7 +32,7 @@ function heroku:configs  {
 			if [[ $SKIPED_VARIABLE_ATTRIBUTE ]]; then
 				# Array Of Apps Tha Match App Search String  
 				var=$(echo "$var" | xargs)
-				array=( $( echo "$APPS" | grep $var ) ) 
+				array=( $( echo "$APPS" | grep "$var" ) ) 
 
 				echo -e "\033[4;32mApps Matching '$var' With Configs Matching '$1' \033[m"
 
@@ -41,11 +41,10 @@ function heroku:configs  {
 					ALL_APP_CONFIGS=$( heroku config -a "$app" )
 					echo -e "\033[4;36m$app\033[m"
 
-
 					IFS=','
 					if [[ $1 ]]; then 
 						for config in $1; do
-							search_match_count=$( echo "$ALL_APP_CONFIGS" | grep -o -c "$config" ) 
+							search_match_count=$( echo "$ALL_APP_CONFIGS" | grep -c "$config" ) 
 							if [ "$search_match_count" != "0" ]; then
 								echo -e "\033[0;37m$( echo "$ALL_APP_CONFIGS" | grep -i -E $config ) \033[m"
 							else
