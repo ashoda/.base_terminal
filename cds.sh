@@ -1,4 +1,3 @@
-#Work In Progress
 function cds {	
 	
 	# view and or cd into bookmark
@@ -11,18 +10,28 @@ function cds {
 		select_directory $array
 		
 	# add pwd to bookmarks or specify directory within the current directory
-	elif [[ $1 == "-a" ]]; then 
+	elif [[ $1 == "-a" ]] ||  [[ $1 == "-af" ]]; then 
 
 		if [[ $2 != "" ]]; then
-			BOOKMARK="$(pwd)/$2"
+			if [[ $2 =~ ^.*\/$ ]]; then
+				BOOKMARK="$(pwd)/$2"
+			else
+				BOOKMARK="$(pwd)/$2/"
+			fi
 		else
 			BOOKMARK="$(pwd)/"
 		fi
 
 		UPDATED=$( grep -v -o "^$BOOKMARK$" "$BASE_DIR/.cds-bookmarks" )
 		
-		echo "$UPDATED" > "$BASE_DIR/.cds-bookmarks"
-		echo "$BOOKMARK" >> "$BASE_DIR/.cds-bookmarks"
+		if [[ $1 == "-af" ]]; then 
+			echo "$BOOKMARK" > "$BASE_DIR/.cds-bookmarks"
+			echo "$UPDATED" >> "$BASE_DIR/.cds-bookmarks"
+
+		else
+			echo "$UPDATED" > "$BASE_DIR/.cds-bookmarks"
+			echo "$BOOKMARK" >> "$BASE_DIR/.cds-bookmarks"
+		fi
 		echo -e  "\033[1;32mbookmark added: \033[m $BOOKMARK"
 
 	# delete current pwd from bookmarks
@@ -55,7 +64,7 @@ function cds {
 	'
 
 	# If input is numeric
-	if [ "$SEARCH" -eq "$SEARCH" ] 2>/dev/null; then
+	if is_numeric $SEARCH ; then
 	
 		array=(`ls -d */ `)
 		cd "${array[ $SEARCH - 1 ]}"
@@ -68,12 +77,11 @@ function cds {
 	else
 		
 		# If partial match of one directory
-		if [ $PARTIALMATCH_COUNT == "1" ] ;
-			then
+		if [ $PARTIALMATCH_COUNT == "1" ]; then
 			cd $( ls -d */ .*/ | grep -i ^$SEARCH.*$2/$ )
 		
 		# If partial match of one directory	
-		elif [ "$PARTIALMATCH_COUNT" -gt "1" ] ; then
+		elif [ "$PARTIALMATCH_COUNT" -gt "1" ]; then
 			
 			# include hidden folders if first character of search term is a '.'
 			if [[ "$SEARCH" =~ ^\..* ]]; then
@@ -84,7 +92,8 @@ function cds {
 
 			indexed_list $array
 
-			select_directory $array
+			callback="cds"
+			select_directory $array $callback
 
 		else 
 			cd $SEARCH
@@ -100,8 +109,7 @@ function indexed_list {
 
 	array=$1
 	index=1
-	for i in "${array[@]}"
-	do
+	for i in "${array[@]}"; do
 		echo -e "\033[32m$index\033[39m: $i"
 		((index++))
 	done
@@ -111,11 +119,15 @@ function indexed_list {
 function select_directory {
 
 	array=$1
+	callback=$2
+
 	printf "\e[1;30mSelect one Or press [enter] to exit > \e[m " 
 	read -r DIR
 
-	if [ "$DIR" != "" ]
-		then cd "${array[$(( $DIR - 1 ))]}"
+	if is_numeric $DIR; then 
+		cd "${array[$(( $DIR - 1 ))]}"
+	elif [ $callback ] && [ "$DIR" != "" ]; then 
+		$callback $DIR
 	fi	
 
 }
@@ -129,4 +141,12 @@ function set_ifs {
 		'
 	fi
 
+}
+
+function is_numeric {
+	if [ "$1" -eq "$1" ] 2>/dev/null; then 
+		return 0
+	else
+		return 1
+	fi
 }
