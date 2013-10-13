@@ -28,10 +28,12 @@ function heroku:configs  {
 		# Iterate Over Apps to Search
 		for var in "$@"; do
 			# Skip First Argument Since It Declare Term(s) To Be Searched In App Configs
+
 			if [[ $SKIPED_VARIABLE_ATTRIBUTE ]]; then
 				# Array Of Apps Tha Match App Search String  
 				var=$(echo "$var" | xargs)
 				array=( $( echo "$APPS" | grep $var ) ) 
+
 				echo -e "\033[4;32mApps Matching '$var' With Configs Matching '$1' \033[m"
 
 				for app in "${array[@]}"; do 
