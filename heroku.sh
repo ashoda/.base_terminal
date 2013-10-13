@@ -14,7 +14,7 @@ function heroku:apps {
 			echo "=================================================="
 			heroku apps | grep -E ^.*$var.* 
 		done
-		echo -e "\r"
+		echo -e \r
 	fi
 }
 
@@ -62,8 +62,8 @@ function heroku:configs  {
 			'
 		done
 	else
-		echo -e "\033[1;30m ##    Be More Specific There Are More Than 15 APPS    ## \033[0m"
-		echo -e "\033[1;30m ##         Usage: heroku:configs [app_search_term]         ## \033[0m"
+		echo -e "\033[1;30m ##       Be More Specific There Are More Than 15 APPS      ## \033[0m"
+		echo -e "\033[1;30m ##          Usage: heroku:configs [app_search_term]        ## \033[0m"
 	fi
 }
 

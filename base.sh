@@ -3,12 +3,6 @@ if [ -f ~/.bashrc ]; then
    source ~/.bashrc
 fi
 
-alias lsa='ls -aFhlG'
-alias ll='ls -l'
-alias search=grep
-alias ..='cd ..'
-alias ...='cd ../..'
-
 BASE_DIR=`dirname $BASH_SOURCE`
 
 [[ -f "$BASE_DIR/cds.sh" ]] && source "$BASE_DIR/cds.sh"
@@ -16,3 +10,9 @@ BASE_DIR=`dirname $BASH_SOURCE`
 [[ -f "$BASE_DIR/rails.sh" ]] && source "$BASE_DIR/rails.sh"
 [[ -f "$BASE_DIR/heroku.sh" ]] && source "$BASE_DIR/heroku.sh"
 
+
+alias lsa='ls -aFhlG'
+alias ll='ls -l'
+alias search=grep
+alias ..='cd ..'
+alias ...='cd ../..'
