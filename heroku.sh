@@ -12,7 +12,7 @@ function heroku:apps {
 			app=$(echo "$app" | xargs)
 			echo -e "\033[32mApps Matching $var\033[39m: $app"
 			echo "=================================================="
-			heroku apps | grep -o "^.*$var.* "
+			heroku apps | grep -E ^.*$var.* 
 		done
 		echo -e "\r"
 	fi
@@ -21,17 +21,18 @@ function heroku:apps {
 # Usage heroku:configs searchTerm1,AnotherTerm,partialTerm3 app1_partial_name app2 app3_partial_name
 function heroku:configs  {
 	SKIPED_VARIABLE_ATTRIBUTE=""
-	APPS=$( heroku apps | grep -o "^.* " )
+	APPS=$( heroku apps | grep -o ^.* )
 	APP_COUNT=$( echo "$APPS" | grep -E -c ".*$2.*" )
 
 	if [[ 15 -ge $APP_COUNT ]]; then 
 		# Iterate Over Apps to Search
 		for var in "$@"; do
 			# Skip First Argument Since It Declare Term(s) To Be Searched In App Configs
-			if [[ $SKIPED_VARIABLE_ATTRIBUTE ]]
-				then
+
+			if [[ $SKIPED_VARIABLE_ATTRIBUTE ]]; then
 				# Array Of Apps Tha Match App Search String  
-				array=( $( echo "$APPS" | grep "$var" ) ) 
+				var=$(echo "$var" | xargs)
+				array=( $( echo "$APPS" | grep $var ) ) 
 
 				echo -e "\033[4;32mApps Matching '$var' With Configs Matching '$1' \033[m"
 
@@ -46,7 +47,7 @@ function heroku:configs  {
 						for config in $1; do
 							search_match_count=$( echo "$ALL_APP_CONFIGS" | grep -o -c "$config" ) 
 							if [ "$search_match_count" != "0" ]; then
-								echo -e "\033[0;37m$( echo "$ALL_APP_CONFIGS" | grep -i -E [^=]$config ) \033[m"
+								echo -e "\033[0;37m$( echo "$ALL_APP_CONFIGS" | grep -i -E $config ) \033[m"
 							else
 								echo -e "\033[31m   * no config vars matching '$config' *   \033[39m"
 							fi
