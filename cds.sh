@@ -54,6 +54,10 @@ function cds {
 		echo "bash: cds: $1: invalid option"
 		echo "cds: usage: cd [-|-s|-d|-da] [dir]"
 
+	elif [[ $( ls -l | grep -c ^d ) == 0 ]]; then
+		
+		echo " - No Directories Present - "
+
 	else
 
 	SEARCH=$1
