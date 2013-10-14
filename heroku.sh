@@ -21,7 +21,7 @@ function heroku:apps {
 # Usage heroku:configs searchTerm1,AnotherTerm,partialTerm3 app1_partial_name app2 app3_partial_name
 function heroku:configs  {
 	SKIPED_VARIABLE_ATTRIBUTE=""
-	APPS=$( heroku apps | grep -E -o "^.* " )
+	APPS=$( heroku apps | grep -E -o "([A-z|0-9|-]*)" )
 	APP_COUNT=$( echo "$APPS" | grep -E -c ".*$2.*" )
 
 	if [[ 15 -ge $APP_COUNT ]]; then 
