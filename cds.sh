@@ -110,23 +110,24 @@ function cds {
 }
 
 function indexed_list {
-
 	array=$1
 	mark_bookmarks=$2
 	index=1
 	p="$(pwd)"
 	BOOKMARKS="$(cat "$BASE_DIR/.cds-bookmarks")"
-
+	OUTPUT=""
 	for i in "${array[@]}"; do
 		BOOKMARK_MATCH=$( echo "$BOOKMARKS" | grep -i -o "^$p/$i/$")
+
 		if [[ $BOOKMARK_MATCH ]];then 
-			echo -e "\033[32m$index\033[39m:\033[1;32m $i \033[m"
+			OUTPUT=$"$OUTPUT\033[32m$index\033[39m:\033[1;32m $i \033[m\n"
 		else
-			echo -e "\033[32m$index\033[39m: $i"
+			OUTPUT=$"$OUTPUT\033[32m$index\033[39m: $i\n"
 		fi
 		((index++))
-	done
+	done | more -r
 
+	echo -en "$OUTPUT" | more -r
 }
 
 function select_directory {
@@ -156,14 +157,22 @@ function set_ifs {
 	if [[ $1 ]]; then
 		IFS=$1
 	else
-		IFS='
-		'
+		IFS=$'\n'
 	fi
 
 }
 
 function is_numeric {
 	if [ "$1" -eq "$1" ] 2>/dev/null; then 
+		return 0
+	else
+		return 1
+	fi
+}
+
+function is_even {
+	rem=$(( $1 % 2 ))
+	if [ $rem -eq 0 ]; then
 		return 0
 	else
 		return 1
