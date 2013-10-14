@@ -115,13 +115,18 @@ function indexed_list {
 
 	for i in "${array[@]}"; do
 		BOOKMARK_MATCH=$( echo "$BOOKMARKS" | grep -i -o "^$p/$i/$")
+		if is_even $index ;then 
+			placement="\033[40G"
+		else
+			placement=""
+		fi
 		if [[ $BOOKMARK_MATCH ]];then 
 			echo -e "\033[32m$index\033[39m:\033[1;32m $i \033[m"
 		else
 			echo -e "\033[32m$index\033[39m: $i"
 		fi
 		((index++))
-	done
+	done | more -r
 
 }
 
@@ -160,6 +165,15 @@ function set_ifs {
 
 function is_numeric {
 	if [ "$1" -eq "$1" ] 2>/dev/null; then 
+		return 0
+	else
+		return 1
+	fi
+}
+
+function is_even {
+	rem=$(( $1 % 2 ))
+	if [ $rem -eq 0 ]; then
 		return 0
 	else
 		return 1
