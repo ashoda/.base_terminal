@@ -121,7 +121,7 @@ function indexed_list {
 			OUTPUT=$"$OUTPUT\033[32m$index\033[39m: $i\n"
 		fi
 		((index++))
-	done
+	done | more -r
 
 	echo -en "$OUTPUT" | more -r
 }
