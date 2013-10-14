@@ -63,7 +63,7 @@ function heroku:configs  {
 		done
 	else
 		echo -e "\033[1;30m ##       Be More Specific There Are More Than 15 APPS      ## \033[0m"
-		echo -e "\033[1;30m ##          Usage: heroku:configs [app_search_term]        ## \033[0m"
+		echo -e "\033[1;30m ##   Usage: heroku:configs 'CONFIG_VAR' [app]  ## \033[0m"
 	fi
 }
 

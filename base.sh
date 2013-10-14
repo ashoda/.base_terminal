@@ -10,7 +10,6 @@ BASE_DIR=`dirname $BASH_SOURCE`
 [[ -f "$BASE_DIR/rails.sh" ]] && source "$BASE_DIR/rails.sh"
 [[ -f "$BASE_DIR/heroku.sh" ]] && source "$BASE_DIR/heroku.sh"
 
-
 alias lsa='ls -aFhlG'
 alias ll='ls -l'
 alias search=grep

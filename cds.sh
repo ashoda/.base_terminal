@@ -46,7 +46,7 @@ function cds {
 	# delete all bookmarks
 	elif [[ $1 == "-da" ]]; then 
 
-		echo "" > "$BASE_DIR/.cds-bookmarks"
+		echo -n > "$BASE_DIR/.cds-bookmarks"
 		echo -e  "\033[1;31mbookmarks cleared\033[m"
 
 	elif [[ "$1" =~ ^-.*  ]]; then
@@ -108,9 +108,18 @@ function cds {
 function indexed_list {
 
 	array=$1
+	mark_bookmarks=$2
 	index=1
+	p="$(pwd)"
+	BOOKMARKS="$(cat "$BASE_DIR/.cds-bookmarks")"
+
 	for i in "${array[@]}"; do
-		echo -e "\033[32m$index\033[39m: $i"
+		BOOKMARK_MATCH=$( echo "$BOOKMARKS" | grep -i -o "^$p/$i/$")
+		if [[ $BOOKMARK_MATCH ]];then 
+			echo -e "\033[32m$index\033[39m:\033[1;32m $i \033[m"
+		else
+			echo -e "\033[32m$index\033[39m: $i"
+		fi
 		((index++))
 	done
 
@@ -130,6 +139,12 @@ function select_directory {
 		$callback $DIR
 	fi	
 
+}
+
+function select_directory_with_bookmarks {
+	array=$1
+	callback=$2
+	select_directory 
 }
 
 function set_ifs {
