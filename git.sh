@@ -3,7 +3,9 @@ source "$BASE_DIR/vendor/.git-prompt.sh"
 GIT_PS1_SHOWDIRTYSTATE=true
 GIT_PS1_SHOWCOLORHINTS=true
 GIT_PS1_UNTRACKEDFILES=true
-PROMPT_COMMAND="__git_ps1 '\u@\h:\w' '\\$ '"
+if [ ! PS1 ]; then
+	PROMPT_COMMAND="__git_ps1 '\u@\h:\w' '\\$ '"
+fi 
 
 alias g=git
 alias gs='git status'
