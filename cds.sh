@@ -2,12 +2,34 @@ function cds {
 	
 	# view and or cd into bookmark
 	if [[ $1 == "-" ]]; then
-		
-		array=( $( cat "$BASE_DIR/.cds-bookmarks" ) )	
-		
-		echo -e "\033[0;32mBookmarked Directories: \033[m"
-		indexed_list $array
-		select_directory $array
+		SEARCH=$2
+		BOOKMARKS=$( cat "$BASE_DIR/.cds-bookmarks")  
+	
+		if [ $SEARCH ]; then
+			BOOKMARK_FOLDERS=$( echo "$( echo "$BOOKMARKS" | grep -oe '[^\"\*\/\:\<\>\?\\\|]*/$' | grep -oE "[^\"\*\\/:\<\>\?\\\|]*$SEARCH[^\"\*\\/:\<\>\?\\\|]+" )" | sort )
+		else
+			BOOKMARK_FOLDERS=$( echo "$( echo "$BOOKMARKS" | grep -oe '[^\"\*\/\:\<\>\?\\\|]*/$' | grep -oE "[^\"\*\\/:\<\>\?\\\|]+" )" | sort )
+		fi
+
+		RESULT_COUNT="$( echo "$BOOKMARK_FOLDERS" | grep -oce '.*' )"
+
+		if [[ "$RESULT_COUNT" == 0 ]];then 
+			return 0
+		elif [[ "$RESULT_COUNT" == 1 ]]; then
+			eval "cds -- $BOOKMARK_FOLDERS"
+		else
+			array=( $BOOKMARK_FOLDERS )
+			
+			echo -e "\033[0;32mBookmarked Directories: \033[m"
+			indexed_list $array
+			select_bookmark $array
+		fi
+
+	elif [[ $1 == "--" ]]; then
+		SEARCH="$2"
+		BOOKMARKS=$( cat "$BASE_DIR/.cds-bookmarks") 
+	
+		cd "$( echo "$BOOKMARKS" | grep -iE /$SEARCH/$ )"
 		
 	# add pwd to bookmarks or specify directory within the current directory
 	elif [[ $1 == "-a" ]] ||  [[ $1 == "-af" ]]; then 
@@ -94,7 +116,7 @@ function cds {
 				array=( $( ls -d */ | grep -o -i ^$SEARCH.*$2/$ ) )
 			fi
 
-			indexed_list $array
+			indexed_list $array true
 
 			callback="cds"
 			select_directory $array $callback
@@ -116,40 +138,56 @@ function indexed_list {
 	p="$(pwd)"
 	BOOKMARKS="$(cat "$BASE_DIR/.cds-bookmarks")"
 	OUTPUT=""
+	
 	for i in "${array[@]}"; do
-		BOOKMARK_MATCH=$( echo "$BOOKMARKS" | grep -i -o "^$p/$i/$")
+		if [ mark_bookmarks ]; then 
+			BOOKMARK_MATCH=$( echo "$BOOKMARKS" | grep -i -o "^$p/$i/$")
+		fi
 
 		if [[ $BOOKMARK_MATCH ]];then 
 			OUTPUT=$"$OUTPUT\033[32m$index\033[39m:\033[1;32m $i \033[m\n"
 		else
 			OUTPUT=$"$OUTPUT\033[32m$index\033[39m: $i\n"
 		fi
+
 		((index++))
 	done
 
-	echo -en "$OUTPUT" | more -r
+	echo -en "$OUTPUT"
 }
 
 function select_directory {
-
 	array=$1
 	callback=$2
 
 	printf "\e[1;30mSelect one Or press [enter] to exit > \e[m " 
 	read -r DIR
 
-	if is_numeric $DIR; then 
-		cd "${array[$(( $DIR - 1 ))]}"
-	elif [ $callback ] && [ "$DIR" != "" ]; then 
-		$callback $DIR
-	fi	
+	if is_numeric $DIR; then
+		eval "cds ${array[$(( $DIR - 1 ))]}"
+	elif [ $DIR ]; then
+		eval "cds $DIR"
+	else
+		return 0
+	fi
 
 }
 
-function select_directory_with_bookmarks {
+function select_bookmark {
 	array=$1
 	callback=$2
-	select_directory 
+
+	printf "\e[1;30mSelect one Or press [enter] to exit > \e[m " 
+	read -r DIR
+		
+	if is_numeric $DIR; then
+		eval "cds -- ${array[$(( $DIR - 1 ))]}"
+	elif [ $DIR ]; then
+		eval "cds -- $DIR"
+	else
+		return 0
+	fi
+	
 }
 
 function set_ifs {
