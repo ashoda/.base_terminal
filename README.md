@@ -23,21 +23,39 @@ Basic dev utilities and shortcuts for common and useful terminal functionality.
 
 	cds a 	[enter] #=> will cd into directory starting with the character "a" if there's only one ohterwise will list out directories that start with the character "a"  
 
+	cds -   [enter] #=> will display a list of bookmarked directoires
+
+	cds - abc [enter] #=> will cd into bookmarked folder that starts with abc or narrows down the list of bookmarks
+
+	cds -- abcd [enter] #=> will cd into bookmarked folder that matches abcd if there is an exact match
+ 
+	cds -a   [enter] #=> will add current directory to list of bookmarked directoires
+
+	cds -d   [enter] #=> will remove current directory from list of bookmarked directoires
+
+
 ## Heroku Config Search (heroku:configs) Usage
 
 	-Simple Usage
-	heroku:configs "" app1_name
-	#> list all config vars for app1
 
-	heroku:configs ConfigVar app1_name
-	#> list config vars for app1 that match ConfigVar
+	heroku:apps 
+	#> list all heroku apps for logged in user 
+
+	heroku:whoami
+	#> displays email of current user
+
+	heroku:configs "" app_name
+	#> list all config vars for app_name
+
+	heroku:configs "ConfigVar" app_name
+	#> list config vars for app_name that match "ConfigVar"
 
 	-Search Multiple Config Variables At Once
-	heroku:configs ConfigVar1,PartialConfigVar2,ConfigVar3 app1_name 	
+	heroku:configs "ConfigVar1,PartialConfigVar2,ConfigVar3" app1_name 	
 	#> list config vars for app1 that match ConfigVar1, PartialConfigVar2 and ConfigVar3
 
 	-Search Multiple Config Variables At Once In Multiple Apps
-	heroku:configs ConfigVar1,PartialConfigVar2,ConfigVar3 app1_name app2_name partial_app3_name
+	heroku:configs "ConfigVar1,PartialConfigVar2,ConfigVar3" app1_name app2_name partial_app3_name
 	#> list config vars for app1 app2 and app3 that match ConfigVar1, PartialConfigVar2 and ConfigVar3
 
 
