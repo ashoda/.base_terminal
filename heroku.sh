@@ -1,7 +1,14 @@
 alias hk=heroku
 
+
+function heroku:whoami {
+	email="$( heroku auth:whoami )"
+	echo -e "\033[32mLogged In As\033[39m : $email"
+}
+
 #Usage heroku:apps app1_partial_name app2_partial_name app3
 function heroku:apps {
+	heroku:whoami
 	if [[ $1 == "" ]]; then	
 		echo -e "\033[32mHeroku Apps\033[39m:"
 		echo "=================================================="
@@ -20,6 +27,7 @@ function heroku:apps {
 
 # Usage heroku:configs searchTerm1,AnotherTerm,partialTerm3 app1_partial_name app2 app3_partial_name
 function heroku:configs  {
+	heroku:whoami
 	SKIPED_VARIABLE_ATTRIBUTE=""
 	APPS=$( heroku apps | grep -E -o "([A-z|0-9|-]*)" )
 	APP_COUNT=$( echo "$APPS" | grep -E -c ".*$2.*" )
