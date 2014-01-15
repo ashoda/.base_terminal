@@ -17,32 +17,38 @@ Basic dev utilities and shortcuts for common and useful terminal functionality.
 
 ## CDS Usage
 
-	cds 	[enter] #=> list directories in current working directory
+	cds
+	#=> list directories in current working directory
 	
-	cds . 	[enter] #=> list all directories in current working directory including hidden directories
+	cds .
+	#=> list all directories in current working directory including hidden directories
 
-	cds a 	[enter] #=> will cd into directory starting with the character "a" if there's only one ohterwise will list out directories that start with the character "a"  
+	cds a
+	#=> will cd into directory starting with the character "a" if there's only one ohterwise will list out directories that start with the character "a"  
 
-	cds -   [enter] #=> will display a list of bookmarked directoires
+	cds -
+	#=> will display a list of bookmarked directoires
 
-	cds - abc [enter] #=> will cd into bookmarked folder that starts with abc or narrows down the list of bookmarks
+	cds - abc 
+	#=> will cd into bookmarked folder that starts with abc or narrows down the list of bookmarks
 
-	cds -- abcd [enter] #=> will cd into bookmarked folder that matches abcd if there is an exact match
+	cds -- abcd
+	#=> will cd into bookmarked folder that matches abcd if there is an exact match
  
-	cds -a   [enter] #=> will add current directory to list of bookmarked directoires
+	cds -a
+	#=> will add current directory to list of bookmarked directoires
 
-	cds -d   [enter] #=> will remove current directory from list of bookmarked directoires
+	cds -d
+	#=> will remove current directory from list of bookmarked directoires
 
 
-## Heroku Config Search (heroku:configs) Usage
-
-	-Simple Usage
-
-	heroku:apps 
-	#> list all heroku apps for logged in user 
+## Heroku Util Usage
 
 	heroku:whoami
 	#> displays email of current user
+
+	heroku:apps 
+	#> list all heroku apps for logged in user 
 
 	heroku:configs "" app_name
 	#> list all config vars for app_name
@@ -57,7 +63,7 @@ Basic dev utilities and shortcuts for common and useful terminal functionality.
 	-Search Multiple Config Variables At Once In Multiple Apps
 	heroku:configs "ConfigVar1,PartialConfigVar2,ConfigVar3" app1_name app2_name partial_app3_name
 	#> list config vars for app1 app2 and app3 that match ConfigVar1, PartialConfigVar2 and ConfigVar3
-
+	
 
 ## Contributing
 
