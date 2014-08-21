@@ -1,5 +1,11 @@
 alias hk=heroku
 
+function heroku? {
+	echo "heroku:whoami   -> Returns user you are logged in as"
+	echo "heroku:apps     ->Returns list of your apps"
+	echo "heroku:configs 	-> Fetches Configs matching given attributes and given apps"
+	echo "                -> ie heroku:configs 'DATABASE_URL' app_1_name app_2_name"
+}
 
 function heroku:whoami {
 	email="$( heroku auth:whoami )"
