@@ -74,7 +74,7 @@ function cds {
 	elif [[ "$1" =~ ^-.*  ]]; then
 
 		echo "bash: cds: $1: invalid option"
-		echo "cds: usage: cd [-|-s|-d|-da] [dir]"
+		echo "cds: usage: cds [-|--|-a|-d|-da] [dir]"
 
 	elif [[ $( ls -l | grep -c ^d ) == 0 ]]; then
 		
@@ -118,9 +118,7 @@ function cds {
 
 			indexed_list $array true
 
-			callback="cds"
-			select_directory $array $callback
-
+			select_directory $array
 		else 
 			cd $SEARCH
 		fi
@@ -158,7 +156,6 @@ function indexed_list {
 
 function select_directory {
 	array=$1
-	callback=$2
 
 	printf "\e[1;30mSelect one Or press [enter] to exit > \e[m " 
 	read -r DIR
@@ -175,7 +172,6 @@ function select_directory {
 
 function select_bookmark {
 	array=$1
-	callback=$2
 
 	printf "\e[1;30mSelect one Or press [enter] to exit > \e[m " 
 	read -r DIR
