@@ -6,7 +6,7 @@ function cds {
 		BOOKMARKS=$( cat "$BASE_DIR/.cds-bookmarks")  
 	
 		if [ $SEARCH ]; then
-			BOOKMARK_FOLDERS=$( echo "$( echo "$BOOKMARKS" | grep -oe '[^\"\*\/\:\<\>\?\\\|]*/$' | grep -oE "[^\"\*\\/:\<\>\?\\\|]*$SEARCH[^\"\*\\/:\<\>\?\\\|]+" )" | sort )
+			BOOKMARK_FOLDERS=$( echo "$( echo "$BOOKMARKS" | grep -oe '[^\"\*\/\:\<\>\?\\\|]*/$' | grep -oE "[^\"\*\\/:\<\>\?\\\|]*$SEARCH[^\"\*\\/:\<\>\?\\\|]*" )" | sort )
 		else
 			BOOKMARK_FOLDERS=$( echo "$( echo "$BOOKMARKS" | grep -oe '[^\"\*\/\:\<\>\?\\\|]*/$' | grep -oE "[^\"\*\\/:\<\>\?\\\|]+" )" | sort )
 		fi
