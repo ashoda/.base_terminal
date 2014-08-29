@@ -23,6 +23,7 @@ alias gcob='git checkout -b'
 alias gpll='git pull'
 alias gpsh='git push'
 alias gsh='git stash'
+alias gcom='git checkout master'
 
 
 function git? {
@@ -38,6 +39,7 @@ function git? {
   echo "grl   -> git remote -v"
   echo "gfo   -> git fetch origin"
   echo "gco   -> git checkout"
+  echo "gcom   -> git checkout master"
   echo "gcob  -> git checkout -b"
   echo "gpll  -> git pull"
   echo "gpsh  -> git push"
