@@ -1,9 +1,9 @@
 alias rc='rails c'
 alias rs='rails s'
 alias rd='rails dbconsole'
-alias rk='rake'
-alias rkdbc='rake db:create'
-alias rkdbm='rake db:migrate'
+alias rk='bin/rake'
+alias rkdbc='bin/rake db:create'
+alias rkdbm='bin/rake db:migrate'
 alias bi='bundle install'
 alias bu='bundle update'
 
