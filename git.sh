@@ -7,49 +7,24 @@ force_color_prompt=yes
 
 PROMPT_COMMAND="__git_ps1 '\[\033[01;31m\]\u@local\[\033[00m\]:\[\033[01;34m\]\w\[\033[00m\]' '\\$'"
 
-alias g=git
-alias gs='git status'
-alias gd='git diff'
-alias ga='git add'
-alias ga.='git add .'
-alias gc='git commit'
-alias gcm='git commit -m'
-alias gcam='git commit -am'
-alias gf='git fetch'
-alias gm='git merge'
-alias gbl='git branch -v'
-alias grl='git remote -v'
-alias gfo='git fetch origin'
-alias gco='git checkout'
-alias gcob='git checkout -b'
-alias gpll='git pull'
-alias gpllo='git pull origin'
-alias gpsh='git push'
-alias gpsho='git push origin'
-alias gsh='git stash'
-alias gcom='git checkout master'
-
-
-function git? {
-  echo "g           -> git"
-  echo "gs          -> git status"
-  echo "gd          -> git diff"
-  echo "ga          -> git add"
-  echo "ga.         -> git add ."
-  echo "gc          -> git commit"
-  echo "gcm         -> git commit -m"
-  echo "gcam        -> git commit -am"
-  echo "gf          -> git fetch"
-  echo "gm          -> git merge"
-  echo "gbl         -> git branch -v"
-  echo "grl         -> git remote -v"
-  echo "gfo         -> git fetch origin"
-  echo "gco         -> git checkout"
-  echo "gcom        -> git checkout master"
-  echo "gcob        -> git checkout -b"
-  echo "gpll        -> git pull"
-  echo "gpllo        -> git pull origin"
-  echo "gpsh        -> git push"
-  echo "gpsho        -> git push origin"
-  echo "gsh         -> git stash"
-}
+bt:add_shortcut g git git
+bt:add_shortcut gs 'git status' git
+bt:add_shortcut gd 'git diff' git
+bt:add_shortcut ga 'git add' git
+bt:add_shortcut ga. 'git add .' git
+bt:add_shortcut gc 'git commit' git
+bt:add_shortcut gcm 'git commit -m' git
+bt:add_shortcut gcam 'git commit -am' git
+bt:add_shortcut gf 'git fetch' git
+bt:add_shortcut gm 'git merge' git
+bt:add_shortcut gbl 'git branch -v' git
+bt:add_shortcut grl 'git remote -v' git
+bt:add_shortcut gfo 'git fetch origin' git
+bt:add_shortcut gco 'git checkout' git
+bt:add_shortcut gcob 'git checkout -b' git
+bt:add_shortcut gpll 'git pull' git
+bt:add_shortcut gpllo 'git pull origin' git
+bt:add_shortcut gpsh 'git push' git
+bt:add_shortcut gpsho 'git push origin' git
+bt:add_shortcut gsh 'git stash' git
+bt:add_shortcut gcom 'git checkout master' git
