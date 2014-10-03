@@ -12,6 +12,11 @@ function bt:add_shortcut {
 	alias "$1?"="echo -e ${2}"
 	alias $1="$2"
 }
+function bt:add_function {
+  BASE_TERMINAL_SHORTCUTS+=("${IRed}[$3]${RCol}\t${Gre}$1${RCol} \t\t${Yel}=>${RCol}\t $2")
+  eval "sc:${3}() { sc $3; }"
+  alias "$1?"="echo -e ${2}"
+}
 
 [[ -f "$BASE_DIR/cds.sh" ]] && source "$BASE_DIR/cds.sh"
 [[ -f "$BASE_DIR/git.sh" ]] && source "$BASE_DIR/git.sh"

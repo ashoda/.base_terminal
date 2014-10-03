@@ -1,20 +1,22 @@
-alias hk=heroku
-
 function heroku? {
-	echo "heroku:whoami   -> Returns user you are logged in as"
+	echo "hk:whoami   -> Returns user you are logged in as"
 	echo "heroku:apps     ->Returns list of your apps"
 	echo "heroku:configs 	-> Fetches Configs matching given attributes and given apps"
 	echo "                -> ie heroku:configs 'DATABASE_URL' app_1_name app_2_name"
 }
 
-function heroku:whoami {
+bt:add_shortcut hk heroku heroku
+bt:add_shortcut "hk:logs" "heroku logs -t " heroku
+bt:add_function hk:whoami "heroku auth:whoami [[formatted]]" heroku
+
+function hk:whoami {
 	email="$( heroku auth:whoami )"
 	echo -e "\033[32mLogged In As\033[39m : $email"
 }
 
 #Usage heroku:apps app1_partial_name app2_partial_name app3
-function heroku:apps {
-	heroku:whoami
+function hk:apps {
+	hk:whoami
 	if [[ $1 == "" ]]; then	
 		echo -e "\033[32mHeroku Apps\033[39m:"
 		echo "=================================================="
@@ -32,8 +34,8 @@ function heroku:apps {
 }
 
 # Usage heroku:configs searchTerm1,AnotherTerm,partialTerm3 app1_partial_name app2 app3_partial_name
-function heroku:configs  {
-	heroku:whoami
+function hk:configs  {
+	hk:whoami
 	SKIPED_VARIABLE_ATTRIBUTE=""
 	APPS=$( heroku apps | grep -E -o "([A-z|0-9|-]*)" )
 	APP_COUNT=$( echo "$APPS" | grep -E -c ".*$2.*" )
