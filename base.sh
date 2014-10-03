@@ -22,6 +22,7 @@ function bt:add_function {
 [[ -f "$BASE_DIR/git.sh" ]] && source "$BASE_DIR/git.sh"
 [[ -f "$BASE_DIR/rails.sh" ]] && source "$BASE_DIR/rails.sh"
 [[ -f "$BASE_DIR/heroku.sh" ]] && source "$BASE_DIR/heroku.sh"
+[[ -f "$BASE_DIR/ssh.sh" ]] && source "$BASE_DIR/ssh.sh"
 
 
 function sc {
