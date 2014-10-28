@@ -1,13 +1,15 @@
 function heroku? {
 	echo "hk:whoami   -> Returns user you are logged in as"
-	echo "heroku:apps     ->Returns list of your apps"
-	echo "heroku:configs 	-> Fetches Configs matching given attributes and given apps"
+	echo "hk:apps     ->Returns list of your apps"
+	echo "hk:configs 	-> Fetches Configs matching given attributes and given apps"
 	echo "                -> ie heroku:configs 'DATABASE_URL' app_1_name app_2_name"
 }
 
 bt:add_shortcut hk heroku heroku
-bt:add_shortcut "hk:logs" "heroku logs -t " heroku
+bt:add_shortcut "hk:logs" "heroku logs -t -a" heroku
 bt:add_function hk:whoami "heroku auth:whoami [[formatted]]" heroku
+bt:add_shortcut hk:console "heroku run console -a" heroku
+bt:add_shortcut hk:psql "heroku pg:psql -a" heroku
 
 function hk:whoami {
 	email="$( heroku auth:whoami )"
