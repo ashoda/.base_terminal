@@ -25,10 +25,10 @@ function bt:add_function {
 [[ -f "$BASE_DIR/ssh.sh" ]] && source "$BASE_DIR/ssh.sh"
 
 
-function sc {
-	for var in "${BASE_TERMINAL_SHORTCUTS[@]}" 
-	do 
-		echo -e "${var}"; 
+function shortcuts? {
+	for var in "${BASE_TERMINAL_SHORTCUTS[@]}"
+	do
+		echo -e "${var}";
 	done | grep "$1"
 }
 
