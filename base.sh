@@ -24,6 +24,8 @@ function bt:add_function {
 [[ -f "$BASE_DIR/heroku.sh" ]] && source "$BASE_DIR/heroku.sh"
 [[ -f "$BASE_DIR/ssh.sh" ]] && source "$BASE_DIR/ssh.sh"
 
+export CLICOLOR=1
+export LSCOLORS=ExFxCxDxBxegedabagacad
 
 function shortcuts? {
 	for var in "${BASE_TERMINAL_SHORTCUTS[@]}"
