@@ -5,7 +5,8 @@ GIT_PS1_SHOWCOLORHINTS=true
 GIT_PS1_UNTRACKEDFILES=true
 force_color_prompt=yes
 
-PROMPT_COMMAND="__git_ps1 '\[\033[01;31m\]\u@local\[\033[00m\]:\[\033[01;34m\]\w\[\033[00m\]' '\\$'"
+# PROMPT_COMMAND="__git_ps1 '\[\033[01;31m\]\u@local\[\033[00m\]:\[\033[01;34m\]\w\[\033[00m\]' '\\$'"
+export PS1='\[\033[01;31m\]\u\[\033[00m\] \[\033[1;34m\]\W\[\033[0m\] \[\033[1;92m\]$(__git_ps1 "[%s]")\[\033[0m\]$ '
 
 bt:add_shortcut g git git
 bt:add_shortcut gs 'git status' git

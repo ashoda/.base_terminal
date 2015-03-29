@@ -1,5 +1,6 @@
 bt:add_shortcut rc 'rails c' rails
 bt:add_shortcut rs 'rails s' rails
+bt:add_shortcut be 'bundle exec' bundle exec
 bt:add_shortcut rd 'rails dbconsole' rails
 bt:add_shortcut bi 'bundle install' rails
 bt:add_shortcut bu 'bundle update' rails
