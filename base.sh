@@ -1,44 +1,43 @@
 #!/usr/bin/bash
 
+export CLICOLOR=1
+export LSCOLORS=ExFxCxDxBxegedabagacad
+
 BASE_DIR=`dirname $BASH_SOURCE`
 [[ -f "$BASE_DIR/vendor/colors.sh" ]] && source "$BASE_DIR/vendor/colors.sh"
-
-
-[ ! -n "$BASE_TERMINAL_SHORTCUTS" ] && BASE_TERMINAL_SHORTCUTS=()
-
-function bt:add_shortcut {
-	BASE_TERMINAL_SHORTCUTS+=("${IRed}[$3]${RCol} ${Gre}$1${RCol} ${Yel} ${RCol} $2")
-	eval "??:${3}() { sc $3; }"
-	alias "$1?"="echo -e ${2}"
-	alias $1="$2"
-}
-function bt:add_function {
-  BASE_TERMINAL_SHORTCUTS+=("${IRed}[$3]${RCol} ${Gre}$1${RCol} ${Yel} ${RCol} $2")
-  eval "sc:${3}() { sc $3; }"
-  alias "$1?"="echo -e ${2}"
-}
-
+[[ -f "$BASE_DIR/shortcuts.sh" ]] && source "$BASE_DIR/shortcuts.sh"
 [[ -f "$BASE_DIR/cds.sh" ]] && source "$BASE_DIR/cds.sh"
 [[ -f "$BASE_DIR/git.sh" ]] && source "$BASE_DIR/git.sh"
 [[ -f "$BASE_DIR/rails.sh" ]] && source "$BASE_DIR/rails.sh"
 [[ -f "$BASE_DIR/heroku.sh" ]] && source "$BASE_DIR/heroku.sh"
 [[ -f "$BASE_DIR/ssh.sh" ]] && source "$BASE_DIR/ssh.sh"
 
-export CLICOLOR=1
-export LSCOLORS=ExFxCxDxBxegedabagacad
+# ls with details and color
+bt:add_shortcut ll      'ls -lhaG'                general
 
-function ?? {
-	for var in "${BASE_TERMINAL_SHORTCUTS[@]}"
-	do
-		echo -e "${var}";
-	done | grep "$1"
-}
+# up 'n' folders
+bt:add_shortcut ..      'cd ..'             general
+bt:add_shortcut ...     'cd ../..'          general
+bt:add_shortcut ....    'cd ../../..'       general
+bt:add_shortcut .....   'cd ../../../..'    general
 
-alias ll='ls -laGh'
-alias search=grep
-alias ..='cd ..'
-alias ...='cd ../..'
+# grep with color
+bt:add_shortcut grep    'grep --color=auto' general
 
+# ip
+bt:add_shortcut ip      'ifconfig | grep "inet " | grep -v 127.0.0.1 | cut -d\ -f2'     general
+bt:add_shortcut ip1     "ifconfig -a | perl -nle'/(\d+\.\d+\.\d+\.\d+)/ && print $1'"   general
+
+# lock computer
+bt:add_shortcut lock    '/System/Library/CoreServices/"Menu Extras"/User.menu/Contents/Resources/CGSession -suspend' general
+
+# hibernation and sleep settings
+bt:add_shortcut hibernate     'sudo pmset -a hibernatemode 25'  general
+bt:add_shortcut sleep         'sudo pmset -a hibernatemode 0'   general
+bt:add_shortcut safesleep     'sudo pmset -a hibernatemode 3'   general
+bt:add_shortcut smartsleep    'sudo pmset -a hibernatemode 2'   general
+
+# include bashrc if present
 if [ -f ~/.bashrc ]; then
    source ~/.bashrc
 fi
