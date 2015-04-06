@@ -1,10 +1,10 @@
-function cds {	
-	
+function cds {
+	clear
 	# view and or cd into bookmark
 	if [[ $1 == "-" ]]; then
 		SEARCH=$2
-		BOOKMARKS=$( cat "$BASE_DIR/.cds-bookmarks")  
-	
+		BOOKMARKS=$( cat "$BASE_DIR/.cds-bookmarks")
+
 		if [ $SEARCH ]; then
 			BOOKMARK_FOLDERS=$( echo "$( echo "$BOOKMARKS" | grep -oe '[^\"\*\/\:\<\>\?\\\|]*/$' | grep -oE "[^\"\*\\/:\<\>\?\\\|]*$SEARCH[^\"\*\\/:\<\>\?\\\|]*" )" | sort )
 		else
@@ -13,13 +13,13 @@ function cds {
 
 		RESULT_COUNT="$( echo "$BOOKMARK_FOLDERS" | grep -oce '.*' )"
 
-		if [[ "$RESULT_COUNT" == 0 ]];then 
+		if [[ "$RESULT_COUNT" == 0 ]];then
 			return 0
 		elif [[ "$RESULT_COUNT" == 1 ]]; then
 			eval "cds -- $BOOKMARK_FOLDERS"
 		else
 			array=( $BOOKMARK_FOLDERS )
-			
+
 			echo -e "\033[0;32mBookmarked Directories: \033[m"
 			indexed_list $array
 			select_bookmark $array
@@ -27,12 +27,12 @@ function cds {
 
 	elif [[ $1 == "--" ]]; then
 		SEARCH="$2"
-		BOOKMARKS=$( cat "$BASE_DIR/.cds-bookmarks") 
-	
+		BOOKMARKS=$( cat "$BASE_DIR/.cds-bookmarks")
+
 		cd "$( echo "$BOOKMARKS" | grep -iE /$SEARCH/$ )"
-		
+
 	# add pwd to bookmarks or specify directory within the current directory
-	elif [[ $1 == "-a" ]] ||  [[ $1 == "-af" ]]; then 
+	elif [[ $1 == "-a" ]] ||  [[ $1 == "-af" ]]; then
 
 		if [[ $2 != "" ]]; then
 			if [[ $2 =~ ^.*\/$ ]]; then
@@ -45,8 +45,8 @@ function cds {
 		fi
 
 		UPDATED=$( grep -v -o "^$BOOKMARK$" "$BASE_DIR/.cds-bookmarks" )
-		
-		if [[ $1 == "-af" ]]; then 
+
+		if [[ $1 == "-af" ]]; then
 			echo "$BOOKMARK" > "$BASE_DIR/.cds-bookmarks"
 			echo "$UPDATED" >> "$BASE_DIR/.cds-bookmarks"
 
@@ -58,7 +58,7 @@ function cds {
 
 	# delete current pwd from bookmarks
 	elif [[ $1 == "-d" ]]; then
-		
+
 		BOOKMARK="$(pwd)/"
 		UPDATED=$( grep -v -o "^$BOOKMARK$" "$BASE_DIR/.cds-bookmarks" )
 
@@ -66,7 +66,7 @@ function cds {
 		echo -e  "\033[1;31mbookmark deleted: \033[m $BOOKMARK"
 
 	# delete all bookmarks
-	elif [[ $1 == "-da" ]]; then 
+	elif [[ $1 == "-da" ]]; then
 
 		echo -n > "$BASE_DIR/.cds-bookmarks"
 		echo -e  "\033[1;31mbookmarks cleared\033[m"
@@ -77,7 +77,7 @@ function cds {
 		echo "cds: usage: cds [-|--|-a|-d|-da] [dir]"
 
 	elif [[ $( ls -l | grep -c ^d ) == 0 ]]; then
-		
+
 		echo " - No Directories Present - "
 
 	else
@@ -91,24 +91,24 @@ function cds {
 
 	# If input is numeric
 	if is_numeric $SEARCH ; then
-	
+
 		array=(`ls -d */ `)
 		cd "${array[ $SEARCH - 1 ]}"
-	
+
 	# If input matches a directory name
-	elif [ $EXACTMATCH_COUNT == "1" ]; then 
-		
-		cd $SEARCH		
+	elif [ $EXACTMATCH_COUNT == "1" ]; then
+
+		cd $SEARCH
 
 	else
-		
+
 		# If partial match of one directory
 		if [ $PARTIALMATCH_COUNT == "1" ]; then
 			cd $( ls -d */ .*/ | grep -i ^$SEARCH.*$2/$ )
-		
-		# If partial match of one directory	
+
+		# If partial match of one directory
 		elif [ "$PARTIALMATCH_COUNT" -gt "1" ]; then
-			
+
 			# include hidden folders if first character of search term is a '.'
 			if [[ "$SEARCH" =~ ^\..* ]]; then
 				array=( $( ls -d */ .*/ | grep -o -i ^$SEARCH.*$2/$ ) )
@@ -119,13 +119,13 @@ function cds {
 			indexed_list $array true
 
 			select_directory $array
-		else 
+		else
 			cd $SEARCH
 		fi
 	fi
 
 	set_ifs
-	
+
 	fi
 }
 
@@ -136,13 +136,13 @@ function indexed_list {
 	p="$(pwd)"
 	BOOKMARKS="$(cat "$BASE_DIR/.cds-bookmarks")"
 	OUTPUT=""
-	
+
 	for i in "${array[@]}"; do
-		if [ mark_bookmarks ]; then 
+		if [ mark_bookmarks ]; then
 			BOOKMARK_MATCH=$( echo "$BOOKMARKS" | grep -i -o "^$p/$i/$")
 		fi
 
-		if [[ $BOOKMARK_MATCH ]];then 
+		if [[ $BOOKMARK_MATCH ]];then
 			OUTPUT=$"$OUTPUT\033[32m$index\033[39m:\033[1;32m $i \033[m\n"
 		else
 			OUTPUT=$"$OUTPUT\033[32m$index\033[39m: $i\n"
@@ -157,7 +157,7 @@ function indexed_list {
 function select_directory {
 	array=$1
 
-	printf "\e[1;30mSelect one Or press [enter] to exit > \e[m " 
+	printf "\e[1;30mSelect one Or press [enter] to exit > \e[m "
 	read -r DIR
 
 	if is_numeric $DIR; then
@@ -173,9 +173,9 @@ function select_directory {
 function select_bookmark {
 	array=$1
 
-	printf "\e[1;30mSelect one Or press [enter] to exit > \e[m " 
+	printf "\e[1;30mSelect one Or press [enter] to exit > \e[m "
 	read -r DIR
-		
+
 	if is_numeric $DIR; then
 		eval "cds -- ${array[$(( $DIR - 1 ))]}"
 	elif [ $DIR ]; then
@@ -183,7 +183,7 @@ function select_bookmark {
 	else
 		return 0
 	fi
-	
+
 }
 
 function set_ifs {
@@ -197,7 +197,7 @@ function set_ifs {
 }
 
 function is_numeric {
-	if [ "$1" -eq "$1" ] 2>/dev/null; then 
+	if [ "$1" -eq "$1" ] 2>/dev/null; then
 		return 0
 	else
 		return 1
