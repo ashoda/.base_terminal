@@ -16,8 +16,9 @@ bt:add_shortcut ga. 'git add .' git
 bt:add_shortcut gc 'git commit' git
 bt:add_shortcut gcm 'git commit -m' git
 bt:add_shortcut gcam 'git commit -am' git
-bt:add_shortcut gf 'git fetch' git
-bt:add_shortcut gm 'git merge' git
+bt:add_shortcut gfe 'git fetch' git
+bt:add_shortcut gme 'git merge' git
+bt:add_shortcut gre 'git rebase' git
 bt:add_shortcut gbl 'git branch -v' git
 bt:add_shortcut grl 'git remote -v' git
 bt:add_shortcut gfo 'git fetch origin' git
