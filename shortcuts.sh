@@ -12,7 +12,7 @@ function bt:add_function {
   alias "$1?"="echo -e ${2}"
 }
 
-function ?? {
+function bt {
 	for var in "${BASE_TERMINAL_SHORTCUTS[@]}"
 	do
 		echo -e "${var}";
