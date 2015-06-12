@@ -22,7 +22,7 @@ bt:add_shortcut gre 'git rebase' git
 bt:add_shortcut gbl 'git branch -v' git
 bt:add_shortcut grl 'git remote -v' git
 bt:add_shortcut gfo 'git fetch origin' git
-bt:add_shortcut gco 'git checkout' git
+bt:add_shortcut gco 'gbc; git checkout' git
 bt:add_shortcut gcob 'git checkout -b' git
 bt:add_shortcut gpll 'git pull' git
 bt:add_shortcut gpllo 'git pull origin' git
@@ -30,3 +30,5 @@ bt:add_shortcut gpsh 'git push' git
 bt:add_shortcut gpsho 'git push origin' git
 bt:add_shortcut gsh 'git stash' git
 bt:add_shortcut gcom 'git checkout master' git
+bt:add_shortcut gbc 'git symbolic-ref --short HEAD'
+bt:add_shortcut gbc 'git symbolic-ref --short HEAD | pbcopy'

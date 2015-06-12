@@ -37,6 +37,8 @@ bt:add_shortcut sleep         'sudo pmset -a hibernatemode 0'   general
 bt:add_shortcut safesleep     'sudo pmset -a hibernatemode 3'   general
 bt:add_shortcut smartsleep    'sudo pmset -a hibernatemode 2'   general
 
+bt:add_shortcut cd_bt         "cd $BASE_DIR"
+
 # include bashrc if present
 if [ -f ~/.bashrc ]; then
    source ~/.bashrc
